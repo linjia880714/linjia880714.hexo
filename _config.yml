@@ -73,3 +73,6 @@ deploy:
   branch: master
   message: update
 
+toc:
+  maxDepth: 3
+
