@@ -2,6 +2,9 @@
 title: NSUserDefaults错误
 date: 2017-03-30 17:58:35
 tags: IOS
+categories:
+- IT
+- IOS
 ---
 
 ```

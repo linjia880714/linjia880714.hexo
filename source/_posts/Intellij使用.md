@@ -2,6 +2,10 @@
 title: Intellij使用
 date: 2017-03-30 15:40:47
 tags: IT工具
+categories:
+- IT
+- java
+- IDE
 ---
 
 <!-- toc -->
