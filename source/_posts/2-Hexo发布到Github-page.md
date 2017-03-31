@@ -27,12 +27,12 @@ categories:
     repo: git@github.com:linjia880714/linjia880714.github.io.git
   ```
   github最好配置成ssh验证，省去了输入用户名和密码的步骤
+  <font color=red>配置type: git的时候，第一次冒号和git之间少了个空格，不管如何操作配置都不生效，还是要严格的遵循语法</font>
 * 发布
   ```bash
   hexo deploy
   ```
-
-到这里已经可以使用http://<用户名>.github.io访问了
+  到这里已经可以使用http://<用户名>.github.io访问了
 
 
 ## 4.如果需要配置自己的域名
