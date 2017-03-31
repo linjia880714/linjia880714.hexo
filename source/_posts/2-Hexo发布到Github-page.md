@@ -27,7 +27,7 @@ categories:
     repo: git@github.com:linjia880714/linjia880714.github.io.git
   ```
   github最好配置成ssh验证，省去了输入用户名和密码的步骤
-  <font color=red>配置type: git的时候，第一次冒号和git之间少了个空格，不管如何操作配置都不生效，还是要严格的遵循语法</font>
+  <font color=red>配置type: git的时候，第一次配置时冒号和git之间少了个空格，不管如何操作配置都不生效，还是要严格的遵循语法</font>
 * 发布
   ```bash
   hexo deploy
