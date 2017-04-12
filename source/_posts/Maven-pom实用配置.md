@@ -115,3 +115,9 @@ mvn clean compile assembly:single
 ```bash
 mvn install:install-file -Dfile=ganymed-ssh2-build210.jar -DgroupId=ch.ethz.ganymed -DartifactId=ganymed-ssh2 -Dversion=build210 -Dpackaging=jar
 ```
+
+### mvn dependency:tree
+排查包冲突超好用，列出所有依赖关系
+```bash
+mvn dependency:tree
+```
