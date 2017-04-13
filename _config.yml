@@ -76,3 +76,11 @@ deploy:
 toc:
   maxDepth: 3
 
+
+feed:
+  type: atom
+  path: atom.xml
+  limit: 100
+  hub:
+  content: true
+
