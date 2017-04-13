@@ -12,3 +12,4 @@ categories:
 而是非主键关联，可以用到以下的方法
 ![](Powerdesigner15-物理模型-非主键联系/01.png)
 ![](Powerdesigner15-物理模型-非主键联系/02.png)
+
