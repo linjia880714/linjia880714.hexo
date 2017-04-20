@@ -7,6 +7,9 @@ categories:
 - IOS
 ---
 
+<!-- toc -->
+
+### UIImagePickerController
 #### iOS 6.0 and later需要在info.plist添加两个key
 NSPhotoLibraryUsageDescription
 NSCameraUsageDescription
@@ -91,7 +94,16 @@ NSCameraUsageDescription
 }
 
 @end
+```
 
+---
 
+### 图片压缩
+```objc
+// 返回JPEG格式的图片
+// 参数2表示压缩比例,范围0~1，1表示不压缩
+NSData *data = UIImageJPEGRepresentation(image,1);
 
+// 返回PNG格式的图片
+NSData *data = UIImagePNGRepresentation(image)；
 ```
