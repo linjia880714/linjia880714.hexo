@@ -17,6 +17,8 @@ categories:
 ```bash
 [root@iZwz95xpl5hq4pfcitdtwdZ conf]# ping6 fe80::216:3eff:fe00:275e%0
 socket: Address family not supported by protocol
+
+### 那是因为机器不支持IPV6,操作完下面步骤就可以了
 ```
 
 ---
@@ -77,6 +79,7 @@ GATEWAY=172.18.175.253
 [root@iZ944o1lko3Z ~]# ping6  fe80::216:3eff:fe00:275e
 connect: Invalid argument
 
+### 改成下面这个就好了
 [root@iZ944o1lko3Z ~]# ping6 -I eth0 ffe80::216:3eff:fe00:275e
 ```
 
