@@ -11,6 +11,20 @@ categories:
 
 代码先贴上,代码参考[https://gist.github.com/brunocesarsilva/12a529f7f752f2853b9f](https://gist.github.com/brunocesarsilva/12a529f7f752f2853b9f)
 
+```xml
+<dependency>
+    <groupId>javax.mail</groupId>
+    <artifactId>javax.mail-api</artifactId>
+    <version>1.5.1</version>
+</dependency>
+
+<dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.5.5</version>
+</dependency>
+```
+
 ```java
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -104,3 +118,5 @@ javax.mail.AuthenticationFailedException: 535-5.7.8 Username and Password not ac
 ![](Javamail使用gmail发送邮件.md/02.png)
 ![](Javamail使用gmail发送邮件.md/03.png)
 谷歌的官方文档[Sign in using App Passwords](https://support.google.com/accounts/answer/185833?hl=en&ctx=ch_DisplayUnlockCaptcha)
+
+__注意注意: office365也有个小坑，如果邮箱地址有大写，要全部小写才能发送成功，不然会一直提示授权失败，其他邮箱没有测试过，如果一直授权失败应该就是大小写的原因__

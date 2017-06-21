@@ -84,3 +84,8 @@ feed:
   hub:
   content: true
 
+google_analytics:
+  enable: true
+  id: UA-101268827-1
+  site: auto
+
