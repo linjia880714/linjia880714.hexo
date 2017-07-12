@@ -28,10 +28,8 @@ archive_type: 'monthly'
 show_count: false
 
 # Miscellaneous
-google_analytics:
-  enable: true
-  id: UA-101268827-1
-  site: auto
+google_analytics: UA-101268827-1
+baidu_analytics: true
 favicon: /favicon.png
 twitter:
 google_plus:

@@ -16,12 +16,9 @@ PS: 不要改成根目录的那个_config.yml
 
 添加如下google代码
 ```
-google_analytics:
-  enable: true
-  id: UA-101268827-1
-  site: auto
+google_analytics: UA-101268827-1
 ```
-id是从google统计获取的
+UA-101268827-1是从google统计获取的
 
 查看页面源码看是否已经加上了
 ![](4-Hexo加入谷歌统计/02.png)
