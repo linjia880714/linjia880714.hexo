@@ -78,6 +78,7 @@ public class SendEmailGmail {
         config.put("mail.smtp.starttls.enable", "true");
         config.put("mail.smtp.host", SERVIDOR_SMTP);
         config.put("mail.smtp.port", PORTA_SERVIDOR_SMTP);
+        //这个参数会把和邮箱服务器的交互过程都打印出来
         config.put("mail.debug", "true");
         return config;
     }
