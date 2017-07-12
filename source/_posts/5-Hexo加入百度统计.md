@@ -18,7 +18,7 @@ categories:
 
 ### 优雅可控的方式
 1. 在themes -> landscape -> _partial 文件夹下新建文件baidu-analytics.ejs
-内容如下，把<script>替换成自己的百度统计代码
+内容如下，把`<script>`替换成自己的百度统计代码
 ```
 <% if (theme.baidu_analytics){ %>
 
