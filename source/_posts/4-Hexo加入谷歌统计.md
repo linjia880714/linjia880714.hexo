@@ -11,9 +11,7 @@ categories:
 使用默认的theme（landscape）
 ![](4-Hexo加入谷歌统计/01.png)
 
-修改这个文件 themes -> landscape -> _config.yml
-PS: 不要改成根目录的那个_config.yml
-
+修改这个文件 themes -> landscape -> _config.yml （PS: 不要改成根目录的那个_config.yml）
 添加如下google代码
 ```
 google_analytics: UA-101268827-1
