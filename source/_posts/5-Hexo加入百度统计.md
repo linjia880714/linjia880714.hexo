@@ -9,7 +9,7 @@ categories:
 <!-- toc -->
 
 默认主题（landscape）
-把百度统计放在每个页面的最下面，百度统计的代码必须放在</head>之前
+把百度统计放在每个页面的最下面，百度统计的代码必须放在`</head>`之前
 
 ### 简单粗暴的方式
 直接在themes -> landscape -> _partial -> head.ejs 文件贴上百度统计的代码
