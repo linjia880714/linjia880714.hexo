@@ -13,6 +13,8 @@ categories:
 [Spring Boot 文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 
 
+`版本：`1.5.6.RELEASE
+
 # 1 创建项目
 [https://start.spring.io/](https://start.spring.io/) 使用线上工具可以很容易创建spring-boot项目（我创建的是maven格式的项目）
 Group :  com.example
@@ -87,5 +89,24 @@ $ jar xvf springBootTest-0.0.1-SNAPSHOT.jar
 
 ### 2.3.3 使用maven运行
 ```bash
-mvn spring-boot:run
+$ mvn spring-boot:run
+
+# 可能需要设置maven的运行参数
+$ export MAVEN_OPTS=-Xmx1024m -XX:MaxPermSize=128M
+```
+
+
+# 3 修改启动的端口
+```java
+import org.springframework.boot.context.embedded.*;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CustomizationBean implements EmbeddedServletContainerCustomizer {
+    
+    public void customize(ConfigurableEmbeddedServletContainer container) {
+        container.setPort(9000);
+    }
+
+}
 ```
