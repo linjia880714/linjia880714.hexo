@@ -35,4 +35,5 @@ categories:
 | Ctrl+F12 | 可以显示当前文件的结构 |
 | Ctrl+Shift+Space | 自动补全代码 |
 
-###
+### 只能代码提示，忽略大小写
+![](Intellij使用/01.png)
