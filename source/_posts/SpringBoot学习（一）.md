@@ -20,6 +20,8 @@ categories:
 Group :  com.example
 Artifact : springBootTest
 
+----
+
 # 2 创建Http Server
 ## 2.1 修改pom.xml，加入依赖
 ```xml
@@ -95,7 +97,48 @@ $ mvn spring-boot:run
 $ export MAVEN_OPTS=-Xmx1024m -XX:MaxPermSize=128M
 ```
 
+### 2.3.4 打成war包
+1. 修改SpringBootApplication
+```java
 
+// 注意下和原本的区别
+// 1. extends SpringBootServletInitializer
+// 2. 多了configure方法
+@SpringBootApplication
+public class SpringBootTestApplication extends SpringBootServletInitializer {
+
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(SpringBootTestApplication.class);
+	}
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootTestApplication.class, args);
+	}
+}
+```
+
+2. 修改pom.xml
+```xml
+<!-- jar改成war -->
+<packaging>war</packaging>
+
+<!-- 增加依赖 -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <scope>provided</scope>
+</dependency>
+
+```
+
+3. 编译
+```bash
+$ mvn clean package -Dmaven.test.skip
+
+# 在target目录下可以看到springBootTest-0.0.1-SNAPSHOT.war文件
+```
+
+----
 # 3 修改启动的端口
 ```java
 import org.springframework.boot.context.embedded.*;
