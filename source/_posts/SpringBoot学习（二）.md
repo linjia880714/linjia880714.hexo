@@ -33,13 +33,6 @@ public class UserController {
         user.setUserId(userId);
         return user;
     }
-
-    @RequestMapping("/")
-    public User getUser2(User user)
-    {
-        return user;
-    }
-
 }
 ```
 
