@@ -14,7 +14,7 @@ categories:
 
 `版本：`1.5.6.RELEASE
 
-# Rest风格的URI
+# 1.Rest风格的URI
 访问方式 Http://host/user/100
 ```java
 import com.example.springBootTest.bean.User;
@@ -36,7 +36,9 @@ public class UserController {
 }
 ```
 
-# 访问静态资源
+----
+
+# 2.访问静态资源
 在classpath路径下，有如下文件夹名称 /static (or /public or /resources or /META-INF/resources) 
 里面的文件将作为静态文件被访问, 建立如下文件
 ![](SpringBoot学习（二）/01.png)
@@ -44,7 +46,9 @@ Http://host/index.html
 Http://host/user2/user.html
 注意：为什么是user2而不是user，在上面我们建立了个Controller（UserController），如果使用user的话，优先匹配Controller，会报错
 
-# 格式化输出Date
+----
+
+# 3.格式化输出Date
 spring默认使用Jackson输出json，Jackson对于Date是输出成时间戳，要改成"yyyy-MM-dd hh:mm:ss"这种格式的字符串
 ```java
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -84,3 +88,133 @@ public class JsonConfig {
 }
 
 ```
+
+# 4.获取命令行启动的参数
+
+----
+
+```bash
+# 运行
+$ java -jar target/springBootTest-0.0.1-SNAPSHOT.jar --name='spring' --logFileList logfile.txt logfile2.txt 
+```
+
+* 如何在IntelliJ IDEA配置这个参数
+![步骤一](SpringBoot学习（二）/02.png)
+![步骤二](SpringBoot学习（二）/03.png)
+
+
+----
+
+## 4.1 使用@Value
+```java
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+
+@Component
+public class ParamsFromCommandLine {
+
+    @Value("${name}")
+    private String name;
+
+    @Value("${logFileList}")
+    private String logFileList;
+
+    @PostConstruct
+    public void init()
+    {
+        System.out.println("name = "+name);
+        System.out.println("logFileList = "+logFileList);
+    }
+}
+```
+结果可以看出需要--name='spring'有等于号的才能拿到
+```bash
+name = 'spring'
+logFileList = 
+```
+
+----
+
+## 4.2 使用ApplicationArguments
+```java
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.stereotype.Component;
+import java.util.List;
+import java.util.Set;
+
+@Component
+public class MyBean {
+
+    @Autowired
+    public MyBean(ApplicationArguments args) {
+        boolean name = args.containsOption("name");
+
+        // Print NonOptionArgs
+        List<String> nonOptionArgs = args.getNonOptionArgs();
+        if (nonOptionArgs!=null)
+        {
+            for (String item:nonOptionArgs)
+            {
+                System.out.println("nonOptionArg :" + item);
+            }
+        }
+
+        // Print Names
+        Set<String> names = args.getOptionNames();
+        if (names != null)
+        {
+            for (String item:names)
+            {
+                System.out.println(item+" = " +args.getOptionValues(item));
+            }
+
+        }
+    }
+}
+
+```
+结果，值得注意的是args.getOptionValues是返回一个数据，那就是我们是否可以添加多一个"--name"
+```bash
+$ java -jar target/springBootTest-0.0.1-SNAPSHOT.jar --name='spring'  --logFileList logfile.txt logfile2.txt 
+nonOptionArg :logfile.txt
+nonOptionArg :logfile2.txt
+logFileList = []
+name = ['spring']
+
+# 运行
+$ java -jar target/springBootTest-0.0.1-SNAPSHOT.jar --name='spring' --name='spring2' --logFileList logfile.txt logfile2.txt 
+nonOptionArg :logfile.txt
+nonOptionArg :logfile2.txt
+logFileList = []
+name = ['spring','spring2']
+```
+
+----
+
+## 4.3 实现CommandLineRunner接口
+```java
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ConfigBeforeStart implements CommandLineRunner {
+
+    public void run(String... args) {
+        for (String item : args)
+        {
+            System.out.println("args : "+item);
+        }
+    }
+}
+```
+结果
+```bash
+args : --name='spring'
+args : --logFileList
+args : logfile.txt
+args : logfile2.txt
+```
+CommandLineRunner主要作用是用于SpringApplication启动之前执行一些代码，具体可以看[boot-features-command-line-runner](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-command-line-runner)
