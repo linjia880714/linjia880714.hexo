@@ -48,7 +48,8 @@ Http://host/user2/user.html
 
 ----
 
-# 3.格式化输出Date
+# 3.Spring mvc Json格式化输出配置(Jackson)
+## 3.1 Jackson格式化输出Date
 spring默认使用Jackson输出json，Jackson对于Date是输出成时间戳，要改成"yyyy-MM-dd hh:mm:ss"这种格式的字符串
 ```java
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -88,6 +89,53 @@ public class JsonConfig {
 }
 
 ```
+----
+## 3.1 Jackson不输出null或是空的变量
+```java
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.stereotype.Component;
+
+@Component
+public class JsonConfig implements Jackson2ObjectMapperBuilderCustomizer{
+
+    public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
+        jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL).serializationInclusion(JsonInclude.Include.NON_EMPTY);
+    }
+}
+```
+
+或者
+
+```java
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import org.springframework.stereotype.Component;
+
+/**
+ * Created by jialin on 22/8/2017.
+ */
+@Component
+public class JsonConfig {
+
+    @Bean
+    public Jackson2ObjectMapperBuilder objectMapperBuilder() {
+        Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+        builder.serializationInclusion(JsonInclude.Include.NON_NULL).serializationInclusion(JsonInclude.Include.NON_EMPTY);
+        return builder;
+    }
+}
+
+```
+
+----
 
 # 4.获取命令行启动的参数
 
@@ -218,3 +266,51 @@ args : logfile.txt
 args : logfile2.txt
 ```
 CommandLineRunner主要作用是用于SpringApplication启动之前执行一些代码，具体可以看[boot-features-command-line-runner](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-command-line-runner)
+
+----
+
+# spring mvc 自定义header
+```java
+import com.example.springBootTest.Params;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
+
+import javax.servlet.http.HttpServletResponse;
+
+@RestController
+public class IndexController {
+
+    @RequestMapping("/1")
+    String home(HttpServletResponse response) {
+        response.setHeader("header1","header1");
+        return "Hello World 1";
+    }
+
+    @RequestMapping("/2")
+    public ResponseEntity home2()
+    {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("header2","header2");
+        httpHeaders.add("header3","header3");
+        return new ResponseEntity("Hello World 2",httpHeaders, HttpStatus.OK);
+    }
+
+    @ModelAttribute
+    public void setVaryResponseHeader(HttpServletResponse response) {
+        response.setHeader("Vary", "Accept");
+    }
+}
+```
+以上展现了3种方式
+1. HttpServletResponse以参数的方式传入到方法里面
+2. 通过返回ResponseEntity，设置headers
+3. @ModelAttribute，这个注解的作用是Controller的每个方法执行前都会执行
