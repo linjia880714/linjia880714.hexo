@@ -1,5 +1,5 @@
 ---
-title: SpringBoot学习（一）
+title: SpringBoot学习 ( 一 )
 date: 2017-08-02 14:45:14
 tags: springboot
 categories:
