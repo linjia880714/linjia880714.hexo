@@ -11,8 +11,6 @@ categories:
 httpClient 4.4
 
 ```java
-package com.medica.framework.utils;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
