@@ -13,6 +13,9 @@ categories:
 
 详细的输入输出在和第三方调试的时候用处极大
 
+## 系统
+此教程实在CentOS release 6.5 (Final)下实验的
+
 ## lua-nginx-module模块打印Response到日志文件
 ### 准备依赖
 #### Lua
