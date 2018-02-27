@@ -110,3 +110,17 @@ Jenkins > configuration
 {% asset_img 09.png %}
 Target Server是个下拉框，根据Jenkins > configuration设置的参数
 {% asset_img 10.png %}
+
+----
+
+## 可能发生的错误
+### Deploy到tomcat失败
+要部署的tomcat抛出异常，如果部署失败不仅要看jenkins的错误信息，也要看tomcat的错误信息，再去定位问题
+```
+java.lang.OutOfMemoryError: PermGen space
+```
+因为war包太大（20M），所以java虚拟机会直接存到永久代（不一定要根据java启动的一些配置），永久代内存不够抛出异常
+
+解决：
+修改 {tocmat_dir}/bin/catalina.sh
+添加一行 JAVA_OPTS="-XX:PermSize=256M -XX:MaxPermSize=512m"
