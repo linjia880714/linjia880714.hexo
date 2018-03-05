@@ -53,7 +53,7 @@ Jenkins > configuration
 | Root POM  | 指定pom.xml地址 |
 | Goals and options  |  要执行的mvn命令，如图所示相当于执行mvn clean package -Dmaven.test.skip |
 
-### 4. Deploy war包到Tomcat
+### 4. Deploy war包到Tomcat（Deploy to container Plugin）
 {% asset_img 06.png %}
 由于已经安装了Deploy to container Plugin，所以会有如上图的选项
 {% asset_img 07.png %}
@@ -83,6 +83,13 @@ username：tomcat
 password: 123456
 
 如何验证设置成功，访问http://${ip}:${port}/，点击“manager app”按钮，弹出登录框，看是否能成功登陆
+
+#### Deploy到tomcat可能会失败
+要部署的tomcat抛出异常，如果部署失败不仅要看jenkins的错误信息，也要看tomcat的错误信息，再去定位问题
+```
+java.lang.OutOfMemoryError: PermGen space
+```
+因为war包太大（20M），所以java虚拟机会直接存到永久代（不一定要根据java启动的一些配置），永久代内存不够抛出异常
 
 ----
 
@@ -114,13 +121,3 @@ Target Server是个下拉框，根据Jenkins > configuration设置的参数
 ----
 
 ## 可能发生的错误
-### Deploy到tomcat失败
-要部署的tomcat抛出异常，如果部署失败不仅要看jenkins的错误信息，也要看tomcat的错误信息，再去定位问题
-```
-java.lang.OutOfMemoryError: PermGen space
-```
-因为war包太大（20M），所以java虚拟机会直接存到永久代（不一定要根据java启动的一些配置），永久代内存不够抛出异常
-
-解决：
-修改 {tocmat_dir}/bin/catalina.sh
-添加一行 JAVA_OPTS="-XX:PermSize=256M -XX:MaxPermSize=512m"
