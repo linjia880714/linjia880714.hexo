@@ -10,7 +10,7 @@ categories:
 
 <!-- toc -->
 
-[Spring Boot 文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+[Spring Boot Reference Guide](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 
 `版本：`1.5.6.RELEASE
 
@@ -314,3 +314,15 @@ public class IndexController {
 1. HttpServletResponse以参数的方式传入到方法里面
 2. 通过返回ResponseEntity，设置headers
 3. @ModelAttribute，这个注解的作用是Controller的每个方法执行前都会执行
+
+# import spring.xml文件
+```java
+@SpringBootApplication
+@ImportResource(locations = {"classpath:spring/spring.xml"})
+public class SpringBootTestApplication  {
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootTestApplication.class, args);
+	}
+}
+```
+使用`@ImportResource`注解

@@ -10,7 +10,7 @@ categories:
 
 <!-- toc -->
 
-[Spring Boot 文档](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+[Spring Boot Reference Guide](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
 
 
 `版本：`1.5.6.RELEASE
