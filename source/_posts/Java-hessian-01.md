@@ -272,6 +272,9 @@ protected void writeObject10(Object obj, AbstractHessianOutput out) throws IOExc
 
       out.writeString(field.getName());
 
+      // fieldSerializers是UnsafeSerializer的内部抽象类，有11个实现
+      // 对应Boollean，Byte，Char，Short，Int，Long，Float，Double，String, Date, Object
+      // 本例子name的类型是String，所以是使用StringFieldSerializer
       _fieldSerializers[i].serialize(out, obj);
     }
 
