@@ -25,7 +25,8 @@ static class Node<K,V> implements Map.Entry<K,V> {
 }
 ```
 
-```
+### table初始化和扩容
+```java
 static final int DEFAULT_INITIAL_CAPACITY = 1 << 4;
 static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
