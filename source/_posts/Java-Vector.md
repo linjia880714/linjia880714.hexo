@@ -10,10 +10,10 @@ JDK: 1.8
 
 ## 分析
 
-Vector大体的逻辑和Arraylist差不多，Vector是线程安全的
+Vector数据结构逻辑和Arraylist差不多，Vector是线程安全的
 
 区别
-1. 新建对象Vector会默认生成长度为10的数组
+1. 新建对象Vector会默认生成长度为10的数组，Arraylist是长度为0的数组（第一次add扩容）
 
 2. grow方法有区别
 ```java

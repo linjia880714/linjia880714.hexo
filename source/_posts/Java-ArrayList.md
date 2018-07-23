@@ -11,6 +11,8 @@ JDK: 1.8
 
 ## 分析
 
+ArrayList底层数据结构就是一个数组，随着数据的添加不断扩容
+
 ### add
 ```java
 private void grow(int minCapacity) {
