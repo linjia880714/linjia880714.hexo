@@ -1,5 +1,5 @@
 ---
-title: Java-LinkedList
+title: LinkedList
 date: 2018-07-23 17:49:42
 tags:
 ---
