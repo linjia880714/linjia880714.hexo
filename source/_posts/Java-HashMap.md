@@ -11,7 +11,7 @@ JDK: 1.8
 ### 底层数据结构
 
 可以看出HashMap的底层结构是数组加链表的结构
-（一定条件下会装成数组加树，稍后讲）
+（一定条件下会转成数组加树，稍后讲）
 
 ```java
 
@@ -22,6 +22,8 @@ static class Node<K,V> implements Map.Entry<K,V> {
     final K key;
     V value;
     Node<K,V> next;
+
+    // 忽略
 }
 ```
 
