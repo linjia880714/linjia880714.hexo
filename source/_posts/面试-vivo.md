@@ -9,21 +9,44 @@ tags:
 ### Java虚拟机
 
 - JVM垃圾回收的算法？
+标记清除
 标记整理
+复制算法
 
-如何判断一个对象要被垃圾回收？GC Roots是怎么判断的?
+- 如何判断一个对象要被垃圾回收？GC Roots是怎么判断的?
+OopMap
 
-垃圾回收器有哪些？有啥区别？
+- 垃圾回收器有哪些？有啥区别？
+Serial
+ParNew
+Parallel Savenge  可控吞吐量
+Serial Old
+Parallel Old
+CMS(Concurrent Mark Sweap)
+    - 初始标记 stop the world
+    - 并发标记
+    - 重新标记 stop the world
+    - 并发清除
+    CMS
+
+G1 RememberSet记录和其他区的引用关系，避免全堆扫描
+    - 初始标记 stop the world CGRoot能直接关联的对象
+    - 并发标记 从堆中找出存活对象
+    - 最终标记 stop the world
+    - 筛选回收 stop the world
 
 垃圾回收器CMS的原理？
 
-常用垃圾收集方法？
-
-常用的垃圾收集器？
 
 CMS的缺点？
+服务处理浮动垃圾，如果cmd运行期间预留内存无法满足，Concurrent Mode Failure，启用Serial Old
+标记清除，内存碎片
 
 G1的特点
+并发并行
+分代搜集
+空间整合
+可预测停顿
 
 说下happen before的原理
 
@@ -47,12 +70,21 @@ kafka的实现原理？
 KAFKA是否可以作为订单等特别重要业务场景的中间件？
 
 DUBBO的原理、集群方式、负载集群方式、服务发现方式？
-
+负载集群:
+RandomLoadBalance   随机，按权重设置随机概率
+RoundRobin LoadBalance 轮循
+LeastActive LoadBalance 
+ConsistentHashLoadBalance 一致性Hash，相同参数的请求总是发到同一提供者。
 
 ### spring
-Spring使用到的设计模式？
+- Spring使用到的设计模式？
+简单工厂 - BeanFactory
+单例
+策略 
+适配器 - Spring中在对于AOP的处理中有Adapter模式
+模板方法  
 
-Spring注解的实现原理？
+- Spring注解的实现原理？
 
 
 ### Java基础
@@ -68,9 +100,15 @@ Spring注解的实现原理？
 
 使用什么连接池？连接池的实现原理？
 
-哪些情况会出现OutMemory
+- 哪些情况会出现OutMemory
+堆溢出 - 循环new对象放到list
+方法栈 - 循环调用方法 xxs
+Thread太多
+方法区 - cglib
 
-说下变量的原子性、可见性？
+- 说下变量的原子性、可见性？
+操作要么全部成功，要么失败
+线程修改变量，其他线程能够知道
 
 - volatile变量的作用
 数据可见性

@@ -55,6 +55,7 @@ public synchronized V put(K key, V value) {
 
     Entry<?,?> tab[] = table;
     int hash = key.hashCode();
+    // key.hashCode() 有可能是负的
     // hash & 0x7FFFFFFF 作用是把hash的值都转成正数
     int index = (hash & 0x7FFFFFFF) % tab.length;
     @SuppressWarnings("unchecked")
@@ -95,3 +96,37 @@ private void addEntry(int hash, K key, V value, int index) {
 ```
 
 ### 4.rehash 扩容
+```jav
+protected void rehash() {
+
+    // 第一部分，计算新数组的大小
+    int oldCapacity = table.length;
+    Entry<?,?>[] oldMap = table;
+
+    // overflow-conscious code
+    int newCapacity = (oldCapacity << 1) + 1;
+    if (newCapacity - MAX_ARRAY_SIZE > 0) {
+        if (oldCapacity == MAX_ARRAY_SIZE)
+            // Keep running with MAX_ARRAY_SIZE buckets
+            return;
+        newCapacity = MAX_ARRAY_SIZE;
+    }
+    Entry<?,?>[] newMap = new Entry<?,?>[newCapacity];
+
+    modCount++;
+    threshold = (int)Math.min(newCapacity * loadFactor, MAX_ARRAY_SIZE + 1);
+    table = newMap;
+
+    // 第二部分，重新散列元素
+    for (int i = oldCapacity ; i-- > 0 ;) {
+        for (Entry<K,V> old = (Entry<K,V>)oldMap[i] ; old != null ; ) {
+            Entry<K,V> e = old;
+            old = old.next;
+
+            int index = (e.hash & 0x7FFFFFFF) % newCapacity;
+            e.next = (Entry<K,V>)newMap[index];
+            newMap[index] = e;
+        }
+    }
+}
+```

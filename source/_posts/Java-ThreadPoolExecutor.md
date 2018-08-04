@@ -1,15 +1,21 @@
 ---
-title: Java-ThreadPoolExecutor
+title: ThreadPoolExecutor
 date: 2018-08-03 18:37:32
 tags:
 ---
 
+<!-- toc -->
+
 参考：[https://www.jianshu.com/p/87bff5cc8d8c](https://www.jianshu.com/p/87bff5cc8d8c)
+
+ThreadPoolExecutor
 
 ### 判断线程池运行态度
 
 最高3位表示
 ```java
+ private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+
 private static final int RUNNING    = -1 << COUNT_BITS;
 private static final int SHUTDOWN   =  0 << COUNT_BITS;
 private static final int STOP       =  1 << COUNT_BITS;
@@ -29,7 +35,7 @@ private static int workerCountOf(int c)  { return c & CAPACITY; }
 ```
 
 
-### addWorker
+### addWorker - 创建线程并运行
 ```java
 private boolean addWorker(Runnable firstTask, boolean core) {
     // 省略...
@@ -75,6 +81,7 @@ private boolean addWorker(Runnable firstTask, boolean core) {
 }
 ```
 
+### runWorker - 具体的工作逻辑，执行task.run
 ```java
 final void runWorker(Worker w) {
     Thread wt = Thread.currentThread();
