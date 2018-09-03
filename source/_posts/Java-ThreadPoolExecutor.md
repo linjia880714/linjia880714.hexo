@@ -14,7 +14,7 @@ ThreadPoolExecutor
 
 最高3位表示
 ```java
- private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
+private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
 
 private static final int RUNNING    = -1 << COUNT_BITS;
 private static final int SHUTDOWN   =  0 << COUNT_BITS;
